@@ -12,10 +12,9 @@ namespace paint
 {
     public partial class Form1 : Form
     {
-        private Point mousePressedPosition;
         private List<PointF> pathPoints = new List<PointF>();
         private bool shouldDrawPath = false;
-        private int pathPointsIterator = 0;
+        private Point lineStartPoint;
 
         public Form1()
         {
@@ -28,41 +27,85 @@ namespace paint
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            //mousePressedPosition = e.Location;
-            shouldDrawPath = true;
-            pathPoints.Add(e.Location);
+            Graphics g = Graphics.FromImage(pictureBox.Image);
+            if (radioButtonPencil.Checked)
+            {
+                shouldDrawPath = true;
+                pathPoints.Add(e.Location);
+            }
+            else if(radioButtonLine.Checked)
+            {
+                lineStartPoint = e.Location;
+            }
+            else if(radioButtonRectangle.Checked)
+            {
+
+            }
+            else if(radioButtonEllipse.Checked)
+            {
+
+            }
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             Graphics g = Graphics.FromImage(pictureBox.Image);
-            
-            g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
-            shouldDrawPath = false;
-            pathPoints = new List<PointF>();
+            if (radioButtonPencil.Checked)
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
+                shouldDrawPath = false;
+                pathPoints = new List<PointF>();
 
-            pictureBox.Refresh();
+                pictureBox.Refresh();
+            }
+            else if (radioButtonLine.Checked)
+            {
+                g.DrawLine(new Pen(Color.Red, 5), lineStartPoint, e.Location);
+                pictureBox.Refresh();
+            }
+            else if (radioButtonRectangle.Checked)
+            {
+
+            }
+            else if (radioButtonEllipse.Checked)
+            {
+
+            }    
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if(shouldDrawPath)
+            Graphics g = Graphics.FromImage(pictureBox.Image);
+            if (radioButtonPencil.Checked)
             {
-                if(e.Location.X > pathPoints.Last().X + 5 ||
-                   e.Location.X < pathPoints.Last().X - 5 ||
-                   e.Location.Y > pathPoints.Last().X + 5 ||
-                   e.Location.Y < pathPoints.Last().X - 5)
+                if (shouldDrawPath)
                 {
-                    if(pathPoints.Count > 5)
+                    if (e.Location.X > pathPoints.Last().X + 5 ||
+                       e.Location.X < pathPoints.Last().X - 5 ||
+                       e.Location.Y > pathPoints.Last().X + 5 ||
+                       e.Location.Y < pathPoints.Last().X - 5)
                     {
-                        Graphics g = Graphics.FromImage(pictureBox.Image);
-                        g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
-                        
-
-                        pictureBox.Refresh();
+                        if (pathPoints.Count > 5)
+                        {
+                            g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
+                            pictureBox.Refresh();
+                        }
+                        pathPoints.Add(e.Location);
                     }
-                    pathPoints.Add(e.Location);
                 }
+            }
+            else if (radioButtonLine.Checked)
+            {
+
+            }
+            else if (radioButtonRectangle.Checked)
+            {
+
+            }
+            else if (radioButtonEllipse.Checked)
+            {
+
             }
         }
     }
