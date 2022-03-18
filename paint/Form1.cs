@@ -14,7 +14,7 @@ namespace paint
     {
         private List<PointF> pathPoints = new List<PointF>();
         private bool shouldDrawPath = false;
-        private Point lineStartPoint;
+        private Point drawStartPoint;
 
         public Form1()
         {
@@ -35,11 +35,11 @@ namespace paint
             }
             else if(radioButtonLine.Checked)
             {
-                lineStartPoint = e.Location;
+                drawStartPoint = e.Location;
             }
             else if(radioButtonRectangle.Checked)
             {
-
+                drawStartPoint = e.Location;
             }
             else if(radioButtonEllipse.Checked)
             {
@@ -61,12 +61,35 @@ namespace paint
             }
             else if (radioButtonLine.Checked)
             {
-                g.DrawLine(new Pen(Color.Red, 5), lineStartPoint, e.Location);
+                g.DrawLine(new Pen(Color.Red, 5), drawStartPoint, e.Location);
                 pictureBox.Refresh();
             }
             else if (radioButtonRectangle.Checked)
             {
+                int sizeX = e.X - drawStartPoint.X;
+                int sizeY = e.Y - drawStartPoint.Y;
+                int startX, startY;
 
+                if (sizeX > 0)
+                {
+                    startX = drawStartPoint.X;
+                }
+                else
+                {
+                    startX = e.X;
+                }
+
+                if (sizeY > 0)
+                {
+                    startY = drawStartPoint.Y;
+                }
+                else
+                {
+                    startY = e.Y;
+                }
+
+                g.DrawRectangle(new Pen(Color.Red, 5), new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                pictureBox.Refresh();
             }
             else if (radioButtonEllipse.Checked)
             {
