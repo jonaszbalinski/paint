@@ -15,7 +15,7 @@ namespace paint
         private List<PointF> pathPoints = new List<PointF>();
         private bool shouldDrawPath = false;
         private Point drawStartPoint;
-        private Color penColor;
+        private Pen pen = new Pen(Color.Black, 3);
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +23,14 @@ namespace paint
             pictureBox.Image = new Bitmap(pictureBox.Width, pictureBox.Height);
             Graphics g = Graphics.FromImage(pictureBox.Image);
             g.Clear(Color.White);
+            pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            pen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+
+            pictureBoxColorShow.Image = new Bitmap(pictureBoxColorShow.Width, pictureBoxColorShow.Height);
+            g = Graphics.FromImage(pictureBoxColorShow.Image);
+            g.Clear(pen.Color);
+            pictureBoxColorShow.Refresh();
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -31,6 +39,7 @@ namespace paint
             if (radioButtonPencil.Checked)
             {
                 shouldDrawPath = true;
+                pathPoints.Add(e.Location);
                 pathPoints.Add(e.Location);
             }
             else if(radioButtonLine.Checked)
@@ -52,16 +61,57 @@ namespace paint
             Graphics g = Graphics.FromImage(pictureBox.Image);
             if (radioButtonPencil.Checked)
             {
+                List<PointF>fixedPathPoints = new List<PointF>();
+                int precision = 5;
+                for (int i = 0; i < pathPoints.Count; i += precision)
+                {
+                    float avgX = 0;
+                    int itX = 0;
+
+                    float avgY = 0;
+                    int itY = 0;
+
+                    for (int j = 0; j < precision; j++)
+                    {
+                        if((i + j) < pathPoints.Count)
+                        {
+                            avgX += pathPoints[i + j].X;
+                            itX++;
+                        }
+                        else break;
+                    }
+
+                    for (int j = 0; j < precision; j++)
+                    {
+                        if ((i + j) < pathPoints.Count)
+                        {
+                            avgY += pathPoints[i + j].Y;
+                            itY++;
+                        }
+                        else break;
+                    }
+
+                    fixedPathPoints.Add(new PointF((avgX/itX), (avgY/itY)));
+                }
+                fixedPathPoints.Add(e.Location);
+
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                g.DrawCurve(new Pen(penColor, trackBarPenSize.Value), pathPoints.ToArray());
+                Color buff = pen.Color;
+                pen.Color = Color.Green;
+                g.DrawCurve(pen, fixedPathPoints.ToArray());
+                pen.Color = buff;
+
                 shouldDrawPath = false;
                 pathPoints.Clear();
+                fixedPathPoints.Clear();
+
+                
 
                 pictureBox.Refresh();
             }
             else if (radioButtonLine.Checked)
             {
-                g.DrawLine(new Pen(penColor, trackBarPenSize.Value), drawStartPoint, e.Location);
+                g.DrawLine(pen, drawStartPoint, e.Location);
                 pictureBox.Refresh();
             }
             else if (radioButtonRectangle.Checked)
@@ -88,8 +138,7 @@ namespace paint
                     startY = e.Y;
                 }
 
-                g.DrawRectangle(new Pen(penColor, trackBarPenSize.Value),
-                    new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                g.DrawRectangle(pen, new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
                 pictureBox.Refresh();
             }
             else if (radioButtonEllipse.Checked)
@@ -116,8 +165,7 @@ namespace paint
                     startY = e.Y;
                 }
 
-                g.DrawEllipse(new Pen(penColor, trackBarPenSize.Value), 
-                    new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                g.DrawEllipse(pen, new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
                 pictureBox.Refresh();
             }    
         }
@@ -136,7 +184,7 @@ namespace paint
                     {
                         if (pathPoints.Count > 5)
                         {
-                            g.DrawCurve(new Pen(penColor, trackBarPenSize.Value), pathPoints.ToArray());
+                            g.DrawCurve(pen, pathPoints.ToArray());
                             pictureBox.Refresh();
                         }
                         pathPoints.Add(e.Location);
@@ -162,8 +210,16 @@ namespace paint
             ColorDialog cd = new ColorDialog();
             if (cd.ShowDialog() == DialogResult.OK)
             {
-                penColor = cd.Color;
+                pen.Color = cd.Color;
+                Graphics g = Graphics.FromImage(pictureBoxColorShow.Image);
+                g.Clear(pen.Color);
+                pictureBoxColorShow.Refresh();
             }
+        }
+
+        private void trackBarPenSize_ValueChanged(object sender, EventArgs e)
+        {
+            pen.Width = trackBarPenSize.Value;
         }
     }
 }
