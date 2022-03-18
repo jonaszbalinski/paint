@@ -36,9 +36,14 @@
             this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
             this.radioButtonEllipse = new System.Windows.Forms.RadioButton();
             this.buttonChangeColor = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.trackBarPenSize = new System.Windows.Forms.TrackBar();
+            this.labelTrackBar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPenSize)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -72,17 +77,19 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 5;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnCount = 6;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.Controls.Add(this.radioButtonPencil, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonLine, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonRectangle, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonEllipse, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.buttonChangeColor, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 5, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -98,7 +105,7 @@
             this.radioButtonPencil.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.radioButtonPencil.Location = new System.Drawing.Point(3, 3);
             this.radioButtonPencil.Name = "radioButtonPencil";
-            this.radioButtonPencil.Size = new System.Drawing.Size(148, 42);
+            this.radioButtonPencil.Size = new System.Drawing.Size(109, 42);
             this.radioButtonPencil.TabIndex = 0;
             this.radioButtonPencil.TabStop = true;
             this.radioButtonPencil.Text = "Pencil";
@@ -109,9 +116,9 @@
             this.radioButtonLine.AutoSize = true;
             this.radioButtonLine.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radioButtonLine.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.radioButtonLine.Location = new System.Drawing.Point(157, 3);
+            this.radioButtonLine.Location = new System.Drawing.Point(118, 3);
             this.radioButtonLine.Name = "radioButtonLine";
-            this.radioButtonLine.Size = new System.Drawing.Size(148, 42);
+            this.radioButtonLine.Size = new System.Drawing.Size(109, 42);
             this.radioButtonLine.TabIndex = 1;
             this.radioButtonLine.TabStop = true;
             this.radioButtonLine.Text = "Line";
@@ -122,9 +129,9 @@
             this.radioButtonRectangle.AutoSize = true;
             this.radioButtonRectangle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radioButtonRectangle.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.radioButtonRectangle.Location = new System.Drawing.Point(311, 3);
+            this.radioButtonRectangle.Location = new System.Drawing.Point(233, 3);
             this.radioButtonRectangle.Name = "radioButtonRectangle";
-            this.radioButtonRectangle.Size = new System.Drawing.Size(148, 42);
+            this.radioButtonRectangle.Size = new System.Drawing.Size(109, 42);
             this.radioButtonRectangle.TabIndex = 2;
             this.radioButtonRectangle.TabStop = true;
             this.radioButtonRectangle.Text = "Rectangle";
@@ -135,9 +142,9 @@
             this.radioButtonEllipse.AutoSize = true;
             this.radioButtonEllipse.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radioButtonEllipse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.radioButtonEllipse.Location = new System.Drawing.Point(465, 3);
+            this.radioButtonEllipse.Location = new System.Drawing.Point(348, 3);
             this.radioButtonEllipse.Name = "radioButtonEllipse";
-            this.radioButtonEllipse.Size = new System.Drawing.Size(148, 42);
+            this.radioButtonEllipse.Size = new System.Drawing.Size(109, 42);
             this.radioButtonEllipse.TabIndex = 3;
             this.radioButtonEllipse.TabStop = true;
             this.radioButtonEllipse.Text = "Ellipse";
@@ -146,12 +153,49 @@
             // buttonChangeColor
             // 
             this.buttonChangeColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonChangeColor.Location = new System.Drawing.Point(619, 3);
+            this.buttonChangeColor.Location = new System.Drawing.Point(463, 3);
             this.buttonChangeColor.Name = "buttonChangeColor";
-            this.buttonChangeColor.Size = new System.Drawing.Size(150, 42);
+            this.buttonChangeColor.Size = new System.Drawing.Size(109, 42);
             this.buttonChangeColor.TabIndex = 4;
             this.buttonChangeColor.Text = "Color";
             this.buttonChangeColor.UseVisualStyleBackColor = true;
+            this.buttonChangeColor.Click += new System.EventHandler(this.buttonChangeColor_Click);
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.trackBarPenSize, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.labelTrackBar, 0, 1);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(578, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(191, 42);
+            this.tableLayoutPanel3.TabIndex = 5;
+            // 
+            // trackBarPenSize
+            // 
+            this.trackBarPenSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBarPenSize.LargeChange = 1;
+            this.trackBarPenSize.Location = new System.Drawing.Point(3, 3);
+            this.trackBarPenSize.Minimum = 1;
+            this.trackBarPenSize.Name = "trackBarPenSize";
+            this.trackBarPenSize.Size = new System.Drawing.Size(185, 23);
+            this.trackBarPenSize.TabIndex = 6;
+            this.trackBarPenSize.Value = 3;
+            // 
+            // labelTrackBar
+            // 
+            this.labelTrackBar.AutoSize = true;
+            this.labelTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelTrackBar.Location = new System.Drawing.Point(3, 29);
+            this.labelTrackBar.Name = "labelTrackBar";
+            this.labelTrackBar.Size = new System.Drawing.Size(185, 13);
+            this.labelTrackBar.TabIndex = 7;
+            this.labelTrackBar.Text = "Pen size";
+            this.labelTrackBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -165,6 +209,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPenSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -179,6 +226,9 @@
         private System.Windows.Forms.RadioButton radioButtonRectangle;
         private System.Windows.Forms.RadioButton radioButtonEllipse;
         private System.Windows.Forms.Button buttonChangeColor;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TrackBar trackBarPenSize;
+        private System.Windows.Forms.Label labelTrackBar;
     }
 }
 

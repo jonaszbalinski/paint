@@ -15,7 +15,7 @@ namespace paint
         private List<PointF> pathPoints = new List<PointF>();
         private bool shouldDrawPath = false;
         private Point drawStartPoint;
-
+        private Color penColor;
         public Form1()
         {
             InitializeComponent();
@@ -53,7 +53,7 @@ namespace paint
             if (radioButtonPencil.Checked)
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
+                g.DrawCurve(new Pen(penColor, trackBarPenSize.Value), pathPoints.ToArray());
                 shouldDrawPath = false;
                 pathPoints.Clear();
 
@@ -61,7 +61,7 @@ namespace paint
             }
             else if (radioButtonLine.Checked)
             {
-                g.DrawLine(new Pen(Color.Red, 5), drawStartPoint, e.Location);
+                g.DrawLine(new Pen(penColor, trackBarPenSize.Value), drawStartPoint, e.Location);
                 pictureBox.Refresh();
             }
             else if (radioButtonRectangle.Checked)
@@ -88,7 +88,8 @@ namespace paint
                     startY = e.Y;
                 }
 
-                g.DrawRectangle(new Pen(Color.Red, 5), new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                g.DrawRectangle(new Pen(penColor, trackBarPenSize.Value),
+                    new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
                 pictureBox.Refresh();
             }
             else if (radioButtonEllipse.Checked)
@@ -115,7 +116,8 @@ namespace paint
                     startY = e.Y;
                 }
 
-                g.DrawEllipse(new Pen(Color.Red, 5), new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                g.DrawEllipse(new Pen(penColor, trackBarPenSize.Value), 
+                    new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
                 pictureBox.Refresh();
             }    
         }
@@ -134,7 +136,7 @@ namespace paint
                     {
                         if (pathPoints.Count > 5)
                         {
-                            g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
+                            g.DrawCurve(new Pen(penColor, trackBarPenSize.Value), pathPoints.ToArray());
                             pictureBox.Refresh();
                         }
                         pathPoints.Add(e.Location);
@@ -152,6 +154,15 @@ namespace paint
             else if (radioButtonEllipse.Checked)
             {
 
+            }
+        }
+
+        private void buttonChangeColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                penColor = cd.Color;
             }
         }
     }
