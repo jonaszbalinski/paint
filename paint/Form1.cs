@@ -43,7 +43,7 @@ namespace paint
             }
             else if(radioButtonEllipse.Checked)
             {
-
+                drawStartPoint = e.Location;
             }
         }
 
@@ -55,7 +55,7 @@ namespace paint
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 g.DrawCurve(new Pen(Color.Red, 5), pathPoints.ToArray());
                 shouldDrawPath = false;
-                pathPoints = new List<PointF>();
+                pathPoints.Clear();
 
                 pictureBox.Refresh();
             }
@@ -93,7 +93,30 @@ namespace paint
             }
             else if (radioButtonEllipse.Checked)
             {
+                int sizeX = e.X - drawStartPoint.X;
+                int sizeY = e.Y - drawStartPoint.Y;
+                int startX, startY;
 
+                if (sizeX > 0)
+                {
+                    startX = drawStartPoint.X;
+                }
+                else
+                {
+                    startX = e.X;
+                }
+
+                if (sizeY > 0)
+                {
+                    startY = drawStartPoint.Y;
+                }
+                else
+                {
+                    startY = e.Y;
+                }
+
+                g.DrawEllipse(new Pen(Color.Red, 5), new Rectangle(startX, startY, Math.Abs(sizeX), Math.Abs(sizeY)));
+                pictureBox.Refresh();
             }    
         }
 
